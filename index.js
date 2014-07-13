@@ -53,7 +53,8 @@ module.exports.router = function() {
     paths[settings.basepath + 'sign'] = null;
   }
   paths[settings.basepath + 'term.js'] = term.script;
-  paths[settings.basepath] = fs.readFileSync('index.html').toString().replace(
+  paths[settings.basepath] = fs.readFileSync(
+      path.join(__dirname, 'index.html')).toString().replace(
       /{{(.+?)}}/g, function(match, keyword) {
     return settings[keyword] || '';
   });
@@ -120,17 +121,21 @@ module.exports.onConnection = function(socket) {
   });
 };
 
-module.exports.listen = function(port) {
-  if (port) {
-    settings.port = port;
-  }
-  var server = http.createServer(module.exports.router());
-  var socket = io(server).of(settings.ioname);
+module.exports.io = function(app) {
+  var socket = io(app).of(settings.ioname);
   socket.use(function(socket, next) {
     settings.auth(socket.request, next);
   });
   socket.on('connection', module.exports.onConnection);
-  server.listen(settings.port);
+}
+
+module.exports.listen = function(port) {
+  if (port) {
+    settings.port = port;
+  }
+  var app = http.createServer(module.exports.router());
+  module.exports.io(app);
+  app.listen(settings.port);
   console.log('Listening on ' + settings.port);
   return module.exports;
 };
