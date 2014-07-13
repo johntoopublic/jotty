@@ -72,9 +72,11 @@ module.exports.router = function() {
         } else if (req.parse.pathname === settings.basepath + 'upload') {
           var form = new multiparty.Form({uploadDir: settings.tmp});
           form.parse(req, function(err, fields, files) {
-            files.file.forEach(function(file) {
-              module.exports.renameFile(file.path, file.originalFilename);
-            });
+            if (files.file) {
+              files.file.forEach(function(file) {
+                module.exports.renameFile(file.path, file.originalFilename);
+              });
+            }
             res.writeHead(204)
             res.end();
           });
