@@ -1,0 +1,101 @@
+<html>
+<head>
+<style>
+  body {
+    background: #000;
+    margin: 0;
+  }
+  #measure {
+    position: absolute;
+    visibility: hidden;
+  }
+  #progress {
+    background: #0f0;
+    border-radius: 2px;
+    bottom: 0;
+    display: none;
+    height: 5px;
+    position: absolute;
+    transition: width .5s;
+  }
+  .terminal {
+    display: inline-block;
+    font: {{font}};
+  }
+  .terminal-cursor {
+    background: #eee;
+    color: #000;
+  }
+</style>
+<head>
+<body>
+<span id="measure" class="terminal">_</span>
+<div id="progress"></div>
+<script src="term.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var measure = document.getElementById('measure');
+var dimensions = function() {
+  return {
+    cols: (document.body.clientWidth / measure.clientWidth) | 0,
+    rows: (document.body.clientHeight / measure.clientHeight) | 0,
+  };
+}
+var socket = io('{{ioname}}');
+socket.on('connect', function() {
+  var term = new Terminal(dimensions());
+  term.on('data', function(data) {
+    socket.emit('data', data);
+  });
+  socket.on('data', function(data) {
+    term.write(data);
+  });
+  socket.on('disconnect', function() {
+    term.destroy();
+    location.reload();
+  });
+  var last = 0;
+  var resize = function() {
+    var time = new Date().getTime();
+    if (time > last + 200) {
+      last = time;
+      var size = dimensions();
+      term.resize(size.cols, size.rows);
+      socket.emit('resize', term.cols, term.rows);
+      window.setTimeout(resize, 200);
+    }
+  };
+  window.addEventListener('resize', resize);
+  term.open(document.body);
+  socket.emit('create', term.cols, term.rows);
+});
+var progress = document.getElementById('progress');
+var upload = function(e) {
+  e.preventDefault();
+  var form = new FormData();
+  for (var i = 0; i < e.dataTransfer.files.length; i++) {
+    form.append('file', e.dataTransfer.files[i]);
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'upload');
+  xhr.onload = function() {
+    if (xhr.status === 204) {
+      progress.style.display = 'none';
+    } else {
+      progress.style.background = '#f00';
+    }
+  }
+  xhr.upload.onprogress = function(e) {
+    progress.style.width = (e.loaded / e.total * 100 || 1) + '%';
+  }
+  xhr.send(form);
+  progress.style.display = 'block';
+  progress.style.width = '1%';
+}
+if ({{upload}}) {
+  // This line seems to be required to trigger drop behavior in Chrome.
+  document.body.ondragover = function() {return false};
+  document.body.addEventListener('drop', upload);
+}
+</script>
+</body>

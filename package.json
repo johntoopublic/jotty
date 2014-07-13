@@ -1,0 +1,17 @@
+{
+	"dependencies": {
+		"authlink": "0.1",
+		"multiparty": "3",
+		"pty.js": "0.2",
+		"socket.io": "1",
+		"term.js": "0.0"
+	},
+	"description": "An in browser terminal based on tty.js with support for drag and drop upload.",
+  "license": "Unlicense",
+	"name": "jotty",
+  "repository": "git://github.com/johntoopublic/jotty.git",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"version": "0.1.0"
+}
