@@ -1,7 +1,9 @@
 {
+	"bin": "./cli.js",
 	"dependencies": {
 		"authlink": "0.1",
 		"multiparty": "3",
+		"nomnom": "1",
 		"pty.js": "0.2",
 		"socket.io": "1",
 		"term.js": "0.0"

@@ -59,7 +59,7 @@ module.exports.router = function() {
   });
   return function (req, res, next) {
     req.parse = url.parse(req.url);
-    if (req.parse.pathname === settings.basepath + 'sign') {
+    if (req.parse.pathname === settings.basepath + 'sign' && settings.sign) {
       settings.sign(req, res);
     } else if (req.parse.pathname in paths) {
       settings.auth(req, function(e) {
