@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var jotty = require('./index.js');
-var opts = nomnom.script('jotty').options({
+var opts = require('nomnom').script('jotty').options({
   authlink: {
     abbr: 'a',
     flag: true,
