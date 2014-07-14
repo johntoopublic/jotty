@@ -4,17 +4,17 @@ var opts = require('nomnom').script('jotty').options({
   authlink: {
     abbr: 'a',
     flag: true,
-    help: 'Whether to use authlink as auth.',
+    help: 'Whether to use limit shell access by requiring a generated passphrase.',
   },
   command: {
     abbr: 'c',
     metavar: 'COMMAND',
-    help: 'Whether to use authlink as auth.',
+    help: 'Run COMMAND when opening shell.',
   },
   port: {
     abbr: 'p',
     metavar: 'PORT',
-    help: 'The port to listen on.',
+    help: 'Listen on PORT.',
   },
 }).parse();
 

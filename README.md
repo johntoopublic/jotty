@@ -1,17 +1,17 @@
 jotty
 =====
 
-Access a server terminal in browser using [socket.io](http://socket.io/) based on [tty.js](https://github.com/chjj/tty.js/) with support for drag and drop upload.
+Jotty allows quick access to a server terminal inside of your browser, and is designed to be easily embedded inside other applications or management pages. It uses [socket.io](http://socket.io/), and is based on [tty.js](https://github.com/chjj/tty.js/) with optional support for drag and drop upload.
 
     npm install jotty
      ~ jotty -h
      
     Usage: jotty [options]
-    
-    Options:                                                                   
-       -a, --authlink                  Whether to use authlink as auth.
-       -c COMMAND, --command COMMAND   Whether to use authlink as auth.
-       -p PORT, --port PORT            The port to listen on.
+
+    Options:
+       -a, --authlink                  Whether to use limit shell access by requiring a generated passphrase.
+       -c COMMAND, --command COMMAND   Run COMMAND when opening shell.
+       -p PORT, --port PORT            Listen on PORT.
        
      ~ node cli.js
     Listening on 8080
