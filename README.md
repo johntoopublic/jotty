@@ -24,3 +24,13 @@ An in browser terminal based on tty.js with support for drag and drop upload.
 
     var jotty = require('jotty');
     jotty({secret: 'This sets a new secret key.'}).listen();
+
+Can also be used around [express](http://expressjs.com/):
+
+    var express = require('express');
+    var jotty = require('jotty');
+    var app = express()
+    app.use(jotty.router());;
+    // ...
+    var server = require('http').createServer(app).listen(process.env.PORT);
+    jotty.io(server);
