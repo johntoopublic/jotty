@@ -14,13 +14,14 @@ var pty = require('pty.js');
 var settings = {
   auth: function(req, next) {next()},
   basepath: '/jotty/',
-  sign: null,
   cwd: process.env.HOME,
   command: '',
+  dblclick: true,
   font: '13px monospace',
   ioname: '/jotty',
   port: process.env.PORT || 8080,
   secret: 'This value is used as an hmac key, and should be set',
+  sign: null,
   tmp: os.tmpDir(),
   upload: true,
 };
@@ -56,7 +57,7 @@ module.exports.router = function() {
   paths[settings.basepath] = fs.readFileSync(
       path.join(__dirname, 'index.html')).toString().replace(
       /{{(.+?)}}/g, function(match, keyword) {
-    return settings[keyword] || '';
+    return (keyword in settings) ? settings[keyword] : match;
   });
   return function (req, res, next) {
     req.parse = url.parse(req.url);

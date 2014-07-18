@@ -67,6 +67,11 @@ socket.on('connect', function() {
     }
   };
   window.addEventListener('resize', resize);
+  if ({{dblclick}}) {
+    window.addEventListener('dblclick', function() {
+      term.enterPrefix();
+    });
+  }
   term.open(document.body);
   socket.emit('create', term.cols, term.rows);
 });
