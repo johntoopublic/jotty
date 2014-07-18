@@ -36,9 +36,10 @@
 <script>
 var measure = document.getElementById('measure');
 var dimensions = function() {
+  var rect = measure.getBoundingClientRect()
   return {
-    cols: (document.body.clientWidth / measure.clientWidth) | 0,
-    rows: (document.body.clientHeight / measure.clientHeight) | 0,
+    cols: (document.body.clientWidth / rect.width) | 0,
+    rows: (document.body.clientHeight / rect.height) | 0,
   };
 }
 var socket = io('{{ioname}}');

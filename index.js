@@ -17,7 +17,7 @@ var settings = {
   sign: null,
   cwd: process.env.HOME,
   command: '',
-  font: '13px "Andale mono" monospace',
+  font: '13px monospace',
   ioname: '/jotty',
   port: process.env.PORT || 8080,
   secret: 'This value is used as an hmac key, and should be set',
