@@ -13,12 +13,12 @@ Jotty allows quick access to a server terminal inside of your browser, and is de
        -c COMMAND, --command COMMAND   Run COMMAND when opening shell.
        -p PORT, --port PORT            Listen on PORT.
        
-     ~ node cli.js
+     ~ jotty # or node cli.js
     Listening on 8080
      
-     ~ node cli.js -p 8000 -a -c 'screen -drU'
+     ~ jotty -p 8000 -a -c 'screen -drU'
     Listening on 8000
-    http://localhost/jotty/sign?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    http://localhost:8000/jotty/sign?key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
 [Settings](/index.js#L14) can be also overridden by requiring the module and using it directly:
 

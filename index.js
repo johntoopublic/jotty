@@ -18,6 +18,7 @@ var settings = {
   command: '',
   dblclick: true,
   font: '13px monospace',
+  head: '',
   ioname: '/jotty',
   port: process.env.PORT || 8080,
   secret: 'This value is used as an hmac key, and should be set',
@@ -149,7 +150,7 @@ module.exports.authlink = function() {
   if (settings.port != 80) {
     link += ':' + settings.port;
   }
-  link += settings.basepath + 'sign?' + pair.key;
+  link += settings.basepath + 'sign?key=' + pair.key;
   console.log(link);
   return module.exports;
 };
