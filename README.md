@@ -1,4 +1,4 @@
-jotty
+jotty [![npm version](http://img.shields.io/npm/v/jotty.svg)](https://npmjs.org/package/jotty) [![npm downloads](http://img.shields.io/npm/dm/jotty.svg)](https://npmjs.org/package/jotty) [![npm downloads](http://img.shields.io/npm/l/jotty.svg)](http://unlicense.org)
 =====
 
 Jotty allows quick access to a server terminal inside of your browser, and is designed to be easily embedded inside other applications or management pages. It uses [socket.io](http://socket.io/), and is based on [tty.js](https://github.com/chjj/tty.js/) with optional support for drag and drop upload.
